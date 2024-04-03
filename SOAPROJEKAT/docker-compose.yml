@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  
+  soa:
+    build:
+      context: ./soa
+      dockerfile: Dockerfile
+    image: soa
+    depends_on:
+      - neo4j
+    ports:
+      - "8011:8011" 
+    environment:
+      SPRING_NEO4J_URI: "bolt://neo4j:7687"
+      SPRING_NEO4J_USERNAME: neo4j
+      SPRING_NEO4J_PASSWORD: password
+    networks:
+      - mynetwork
+      
+  neo4j:
+    image: neo4j
+    container_name: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/password
+    volumes:
+      - ./data:/data
+    networks:
+      - mynetwork
+
+  
+networks:
+  mynetwork:

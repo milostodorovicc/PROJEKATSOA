@@ -16,7 +16,7 @@ $(document).on("submit", "form", function (event) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8011/api/korisnik/login",
+        url: "http://localhost:8081/api/korisnik/login",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(login),

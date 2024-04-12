@@ -1,0 +1,58 @@
+server:
+  port: 8081
+
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: soa
+          uri: http://soa:8011
+          predicates:
+            - Path=/api/korisnik/**
+        - id: static
+          uri: http://soa:8011
+          predicates:
+            - Path=/**
+        - id: soablog
+          uri: http://soablog:8012
+          predicates:
+            - Path=/api/blogovi/**
+
+
+#      globalcors:
+#        cors-configurations:
+#          '[0]':
+#            allowed-origins: "http://localhost:8011"
+#            allowed-methods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+
+
+
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: containername1
+#          uri: http://containername1:containername1port
+#          predicates:
+#            - Path=/x/y/**
+#          metadata:
+#            cors:
+#              allowedOrigins: "http://localhost:containername1port"
+#              allowedMethods:
+#                - GET
+#                - POST
+#                - PUT
+#                - DELETE
+#                - OPTIONS
+#              maxAge: 3600
+#
+#
+#        - id: soablog
+#          uri: http://soablog:8012
+#          predicates:
+#            - Path=/api/blogovi/**

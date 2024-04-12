@@ -17,7 +17,48 @@ services:
       SPRING_NEO4J_PASSWORD: password
     networks:
       - mynetwork
+
+  
       
+  soablog:
+    build:
+      context: ./blog
+      dockerfile: Dockerfile
+    image: soablog
+    depends_on:
+      - neo4j
+    ports:
+      - "8012:8012" 
+    environment:
+      SPRING_NEO4J_URI: "bolt://neo4j:7687"
+      SPRING_NEO4J_USERNAME: neo4j
+      SPRING_NEO4J_PASSWORD: password
+    networks:
+      - mynetwork
+
+
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    image: gateway
+    depends_on:
+      - neo4j
+      - soa
+      - soablog
+    ports:
+      - "8081:8081" 
+    environment:
+      SPRING_NEO4J_URI: "bolt://neo4j:7687"
+      SPRING_NEO4J_USERNAME: neo4j
+      SPRING_NEO4J_PASSWORD: password
+    networks:
+      - mynetwork
+
+
+
+
+
   neo4j:
     image: neo4j
     container_name: neo4j

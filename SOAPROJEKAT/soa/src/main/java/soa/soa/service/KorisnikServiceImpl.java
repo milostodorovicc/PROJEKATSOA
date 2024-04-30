@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import soa.soa.entity.LoginDTO;
 import soa.soa.entity.Registrovanikorisnik;
+import soa.soa.entity.RegkorisnikDTO;
 import soa.soa.repository.RegistrovanikorisnikRepository;
 
 import java.util.List;
@@ -84,6 +85,21 @@ public class KorisnikServiceImpl implements KorisnikService{
 
         Registrovanikorisnik regkorisnik1 = this.registrovanikorisnikRepository.save(noviregkorisnik);
         return regkorisnik1;
+
+
+    }
+
+
+    @Override
+    public RegkorisnikDTO getone(Long id) throws Exception {
+
+        Registrovanikorisnik noviregkorisnik = this.registrovanikorisnikRepository.findbyid(id);
+        RegkorisnikDTO regkorisnik = new RegkorisnikDTO();
+        regkorisnik.setKorisnickoime(noviregkorisnik.getKorisnickoime());
+        regkorisnik.setEmail(noviregkorisnik.getEmail());
+
+
+        return regkorisnik;
 
 
     }

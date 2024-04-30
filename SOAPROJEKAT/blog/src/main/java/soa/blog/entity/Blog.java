@@ -7,7 +7,9 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 
 @Node
@@ -21,7 +23,7 @@ public class Blog {
 
     private String opis;
 
-    private LocalDateTime datum;
+    private LocalDate datum;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -31,7 +33,7 @@ public class Blog {
     private Set<Komentar> komentari;
 
 
-    public Blog(Long id, String naslov, String opis, LocalDateTime datum, Status status) {
+    public Blog(Long id, String naslov, String opis, LocalDate datum, Status status) {
         this.id = id;
         this.naslov = naslov;
         this.opis = opis;
@@ -68,11 +70,11 @@ public class Blog {
         this.opis = opis;
     }
 
-    public LocalDateTime getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 

@@ -2,6 +2,7 @@ package soa.soa.service;
 
 import soa.soa.entity.LoginDTO;
 import soa.soa.entity.Registrovanikorisnik;
+import soa.soa.entity.RegkorisnikDTO;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface KorisnikService {
     List<Registrovanikorisnik> findAll(String uloga) throws Exception;
 
     Registrovanikorisnik update(Registrovanikorisnik regkorisnik, String uloga) throws Exception;
+
+    RegkorisnikDTO getone(Long id) throws Exception;
 }

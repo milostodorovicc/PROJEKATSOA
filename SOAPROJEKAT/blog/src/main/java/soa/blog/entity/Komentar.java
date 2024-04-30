@@ -4,6 +4,7 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Node
@@ -15,9 +16,9 @@ public class Komentar {
 
     private String tekst;
 
-    private LocalDateTime datumkreiranja;
+    private LocalDate datumkreiranja;
 
-    private LocalDateTime datumposlednjeizmene;
+    private LocalDate datumposlednjeizmene;
 
     private Long idkorisnika;
 
@@ -38,19 +39,19 @@ public class Komentar {
         this.tekst = tekst;
     }
 
-    public LocalDateTime getDatumkreiranja() {
+    public LocalDate getDatumkreiranja() {
         return datumkreiranja;
     }
 
-    public void setDatumkreiranja(LocalDateTime datumkreiranja) {
+    public void setDatumkreiranja(LocalDate datumkreiranja) {
         this.datumkreiranja = datumkreiranja;
     }
 
-    public LocalDateTime getDatumposlednjeizmene() {
+    public LocalDate getDatumposlednjeizmene() {
         return datumposlednjeizmene;
     }
 
-    public void setDatumposlednjeizmene(LocalDateTime datumposlednjeizmene) {
+    public void setDatumposlednjeizmene(LocalDate datumposlednjeizmene) {
         this.datumposlednjeizmene = datumposlednjeizmene;
     }
 
@@ -67,7 +68,7 @@ public class Komentar {
     }
 
 
-    public Komentar(Long id, String tekst, LocalDateTime datumkreiranja, LocalDateTime datumposlednjeizmene, Long idkorisnika) {
+    public Komentar(Long id, String tekst, LocalDate datumkreiranja, LocalDate datumposlednjeizmene, Long idkorisnika) {
         this.id = id;
         this.tekst = tekst;
         this.datumkreiranja = datumkreiranja;

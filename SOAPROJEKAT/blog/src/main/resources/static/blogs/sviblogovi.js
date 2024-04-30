@@ -2,7 +2,7 @@ $(document).ready(function (){
 
         //var uloga = localStorage.getItem("uloga");
 
-        let url = new URL('http://localhost:8081/api/blogovi/svi');
+        let url = new URL('http://localhost:8081/blogs/api/blogovi/svi');
 
         //url.searchParams.append('uloga', uloga);
 
@@ -50,6 +50,37 @@ $(document).ready(function (){
 
     });
 
+    $(document).on("click", '#prikaziblog', function(){
+
+        var blog1 = $("input[name=blog]:checked").val();
+        if (typeof blog1 === 'undefined') {
+            alert("Niste izabrali blog");
+
+        }else{
+
+
+            window.location.href = "blog.html?id=" + blog1;
+        }
+
+
+    });
+
+
+
+    $(document).on("click", '#svikomentari', function(){
+
+        var blog1 = $("input[name=blog]:checked").val();
+        if (typeof blog1 === 'undefined') {
+            alert("Niste izabrali blog");
+
+        }else{
+
+
+            window.location.href = "svikomentari.html?id=" + blog1;
+        }
+
+
+    });
 });
 
 

@@ -1,7 +1,7 @@
 if(localStorage.getItem("uloga")=== "ADMINISTRATOR") {
     $(document).ready(function () {
 
-        let url = new URL('http://localhost:8081/api/korisnik');
+        let url = new URL('http://localhost:8081/users1/api/korisnik');
         url.searchParams.append('uloga', localStorage.getItem("uloga"));
         $.ajax({
             type: "GET",
@@ -50,7 +50,7 @@ if(localStorage.getItem("uloga")=== "ADMINISTRATOR") {
 
 
         let trenerid = this.dataset.id;
-        let url = new URL('http://localhost:8081/api/korisnik/' + trenerid);
+        let url = new URL('http://localhost:8081/users1/api/korisnik/' + trenerid);
         url.searchParams.append('uloga', localStorage.getItem("uloga"));
 
         $.ajax({

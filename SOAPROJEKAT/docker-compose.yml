@@ -36,6 +36,26 @@ services:
     networks:
       - mynetwork
 
+  tura:
+    build:
+      context: ./tura
+      dockerfile: Dockerfile
+    image: tura
+    depends_on:
+      - neo4j
+    ports:
+      - "8013:8013" 
+    environment:
+      SPRING_NEO4J_URI: "bolt://neo4j:7687"
+      SPRING_NEO4J_USERNAME: neo4j
+      SPRING_NEO4J_PASSWORD: password
+    networks:
+      - mynetwork
+
+
+
+
+
 
   gateway:
     build:
@@ -46,6 +66,7 @@ services:
       - neo4j
       - soa
       - soablog
+      - tura
     ports:
       - "8081:8081" 
     environment:

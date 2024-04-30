@@ -4,6 +4,7 @@ $(document).on("click", '#dodajkomentar1', function () {
         var tekst = $("#komentar").val();
         let urlParams = new URLSearchParams(window.location.search);
         let blog1 = urlParams.get('id');
+        let idkomentatora = localStorage.getItem("id");
 
         console.log(blog1)
 
@@ -28,10 +29,11 @@ $(document).on("click", '#dodajkomentar1', function () {
             // var fitnescentar1 = localStorage.getItem('fitnescentar1');
             //var uloga = localStorage.getItem('uloga');
 
-            let url = new URL('http://localhost:8081/api/blogovi/novikomentar');
+            let url = new URL('http://localhost:8081/blogs/api/blogovi/novikomentar');
 
             url.searchParams.append('blog1', blog1);
-            //url.searchParams.append('uloga', uloga);
+            url.searchParams.append('idkomentatora', idkomentatora);
+
 
 
             $.ajax({

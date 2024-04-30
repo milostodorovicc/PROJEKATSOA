@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset = "utf-8"/>
+  <title>Kreiranje tura</title>
+  <link rel = "stylesheet" type = "text/css" >
+  <script src="jquery.min.js"></script>
+
+  <script src="jquery.validate.min.js"></script>
+
+  <script src="kreiranjetura.js"></script>
+</head>
+
+<body>
+
+<div class = "login-form">
+  <h1>Kreiraj turu</h1>
+  <form  id = "turaform" >
+
+    <label for="nazivture">Naziv ture: </label>
+    <input id="nazivture" type="text" name="nazivture" placeholder="Unesite naziv ture"
+           size="25" maxlength="35" required  />
+
+    <br/>
+    <br/>
+
+    <label for="opisture"> Opis ture: </label>
+    <input id="opisture" type="text" name="opisture" placeholder="Unesite opis ture"
+           size="50" maxlength="235" required />
+    <br/>
+    <br/>
+
+    <label for="duzinature">Duzina ture: </label>
+    <input id="duzinature" type="number" name="duzinature" placeholder="Unesite duzinu ture"
+           size="25" maxlength="35" required  />
+
+    <br/>
+    <br/>
+
+    <label for="tezinature"> Tezina ture: </label>
+    <input id="tezinature" type="number" name="tezinature" placeholder="Unesite tezinu ture"
+           size="25" maxlength="235" required />
+    <br/>
+
+
+    <label for="cenature"> Cena ture: </label>
+    <input id="cenature" type="number" name="cenature" placeholder="Unesite cenu ture"
+           size="25" maxlength="35" required />
+    <br/>
+    <br/>
+
+
+    <fieldset>
+
+      Odaberite tagove:<br/>
+      <label for="tag1">TAG1</label>
+      <input id="tag1" class = 'tag1' type="radio" name="tag1" value="t"  />
+      <br/>
+      <label for="tag2">TAG2</label>
+      <input id="tag2"  type="radio" name="tag2" value="c"  />
+      <br/>
+      <label for="tag3">TAG3</label>
+      <input id="tag3"  type="radio" name="tag3" value="c"  />
+
+
+    </fieldset>
+
+
+    <input type = "submit" value = "Kreiraj turu">
+  </form>
+</div>
+</body>

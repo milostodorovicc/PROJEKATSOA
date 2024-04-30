@@ -7,17 +7,30 @@ spring:
     gateway:
       routes:
         - id: soa
-          uri: http://soa:8011
+          uri: http://localhost:8011
           predicates:
-            - Path=/api/korisnik/**
-        - id: static
-          uri: http://soa:8011
-          predicates:
-            - Path=/**
+#            - Path=/users1/api/korisnik/**,/users1/**
+            - Path=/users1/**
         - id: soablog
-          uri: http://soablog:8012
+          uri: http://localhost:8012
           predicates:
-            - Path=/api/blogovi/**
+            - Path=/blogs/**
+        - id: tura
+          uri: http://localhost:8013
+          predicates:
+            - Path=/tours/**
+#        - id: static3
+#          uri: http://tura:8013
+#          predicates:
+#            - Path=/**
+#        - id: soablog
+#          uri: http://soablog:8012
+#          predicates:
+#            - Path=/api/blogovi/**
+#        - id: tura
+#          uri: http://tura:8013
+#          predicates:
+#            - Path=/api/ture/**
 
 
 #      globalcors:

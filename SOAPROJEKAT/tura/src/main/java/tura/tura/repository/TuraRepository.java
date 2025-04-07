@@ -8,6 +8,7 @@ import tura.tura.entity.Korpa;
 import tura.tura.entity.Tura;
 import tura.tura.entity.Turaukorpi;
 
+import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -15,6 +16,10 @@ public interface TuraRepository extends Neo4jRepository<Tura,Long> {
 
     @Query("MATCH (t:Tura) WHERE id(t) =$id RETURN t")
     Tura findbyid(@Param("id")Long id);
+
+
+    @Query("MATCH (t:Tura) WHERE t.idkreatorature =$id RETURN t")
+    List<Tura> findbyidkreatorature(@Param("id")Long id);
 
 
 

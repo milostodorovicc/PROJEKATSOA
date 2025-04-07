@@ -13,6 +13,9 @@ $(document).ready(function (){
         type: "GET",
         url: url,
         dataType: "json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+        },
 
         success: function (res) {
 

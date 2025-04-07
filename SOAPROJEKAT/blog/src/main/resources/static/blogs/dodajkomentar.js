@@ -4,7 +4,7 @@ $(document).on("click", '#dodajkomentar1', function () {
         var tekst = $("#komentar").val();
         let urlParams = new URLSearchParams(window.location.search);
         let blog1 = urlParams.get('id');
-        let idkomentatora = localStorage.getItem("id");
+
 
         console.log(blog1)
 
@@ -32,7 +32,7 @@ $(document).on("click", '#dodajkomentar1', function () {
             let url = new URL('http://localhost:8081/blogs/api/blogovi/novikomentar');
 
             url.searchParams.append('blog1', blog1);
-            url.searchParams.append('idkomentatora', idkomentatora);
+
 
 
 
@@ -42,6 +42,9 @@ $(document).on("click", '#dodajkomentar1', function () {
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(novikomentar),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+                },
                 success: function (res) {
                     alert("Uspesno ste dodali novi komentar na izabrani blog!");
 

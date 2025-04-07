@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "soa.soa.service";
+option java_outer_classname = "UserServiceProto";
+
+service UserService {
+  rpc getusername(UserRequest) returns (UserResponse);
+  rpc abcde(UserRequest1) returns (UserResponse1);
+}
+
+message UserRequest {
+string token = 1;
+}
+
+message UserResponse {
+  int64 id = 1;
+  string korisnickoime = 2;
+  string email = 3;
+}
+
+
+
+
+message UserRequest1 {
+  string abcd = 1;
+}
+
+message UserResponse1 {
+
+  string abc = 1;
+}

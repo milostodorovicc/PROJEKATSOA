@@ -12,11 +12,13 @@ import java.util.Optional;
 @Repository
 public interface RegistrovanikorisnikRepository extends Neo4jRepository<Registrovanikorisnik, Long> {
 
-    boolean existsRegistrovanikorisnikByKorisnickoimeOrLozinkaOrEmail(String korisnickoime, String lozinka, String email);
+    boolean existsRegistrovanikorisnikByUsernameOrPasswordOrEmail(String username, String password, String email);
 
-    Registrovanikorisnik findByKorisnickoimeAndLozinka(String korisnickoime, String lozinka);
+    Registrovanikorisnik findByUsernameAndPassword(String username, String password);
 
-    List<Registrovanikorisnik> findByAktivan(boolean aktivan);
+    Registrovanikorisnik findByUsername(String username);
+
+    List<Registrovanikorisnik> findByEnabled(boolean enabled);
 
     @Query("MATCH (r:Registrovanikorisnik) WHERE id(r) =$id RETURN r")
     Registrovanikorisnik findbyid(@Param("id")Long id);

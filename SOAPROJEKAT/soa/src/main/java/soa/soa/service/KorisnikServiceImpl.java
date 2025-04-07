@@ -1,25 +1,31 @@
 package soa.soa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import soa.soa.entity.LoginDTO;
 import soa.soa.entity.Registrovanikorisnik;
 import soa.soa.entity.RegkorisnikDTO;
+import soa.soa.entity.Role;
 import soa.soa.repository.RegistrovanikorisnikRepository;
+import soa.soa.repository.RoleRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class KorisnikServiceImpl implements KorisnikService{
 
     private final RegistrovanikorisnikRepository registrovanikorisnikRepository;
+    private final RoleRepository roleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public KorisnikServiceImpl(RegistrovanikorisnikRepository registrovanikorisnikRepository) {
+    public KorisnikServiceImpl(RegistrovanikorisnikRepository registrovanikorisnikRepository, RoleRepository roleRepository) {
         this.registrovanikorisnikRepository = registrovanikorisnikRepository;
+        this.roleRepository = roleRepository;
 
     }
 
@@ -27,12 +33,19 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 
     @Override
-    public Registrovanikorisnik createKorisnik(Registrovanikorisnik registrovanikorisnik) throws Exception {
+    public Registrovanikorisnik createKorisnik(Registrovanikorisnik registrovanikorisnik, String role12) throws Exception {
 
-        if(registrovanikorisnikRepository.existsRegistrovanikorisnikByKorisnickoimeOrLozinkaOrEmail(registrovanikorisnik.getKorisnickoime(), registrovanikorisnik.getLozinka(),registrovanikorisnik.getEmail())) {
+        if(registrovanikorisnikRepository.existsRegistrovanikorisnikByUsernameOrPasswordOrEmail(registrovanikorisnik.getUsername(), registrovanikorisnik.getPassword(),registrovanikorisnik.getEmail())) {
             throw new Exception("Korisnik sa takvim korisnickim imenom, lozinkom ili email-om vec postoji!");
         }
-
+        registrovanikorisnik.setEnabled(true);
+        registrovanikorisnik.setPassword(passwordEncoder.encode(registrovanikorisnik.getPassword()));
+        Role role = new Role();
+        role.setName(role12);
+        Role role1 = this.roleRepository.save(role);
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(role1);
+        registrovanikorisnik.setRoles(roles);
         Registrovanikorisnik noviregistrovanikorisnik = this.registrovanikorisnikRepository.save(registrovanikorisnik);
         return noviregistrovanikorisnik;
     }
@@ -42,13 +55,13 @@ public class KorisnikServiceImpl implements KorisnikService{
     @Override
     public LoginDTO proveri(String korisnickoime, String lozinka) throws Exception{
         LoginDTO loginDTO2 = new LoginDTO();
-        Registrovanikorisnik regkorisnik = registrovanikorisnikRepository.findByKorisnickoimeAndLozinka(korisnickoime, lozinka);
+        Registrovanikorisnik regkorisnik = registrovanikorisnikRepository.findByUsernameAndPassword(korisnickoime, lozinka);
         if(regkorisnik!= null){
             loginDTO2.setId(regkorisnik.getId());
-            loginDTO2.setAktivan(regkorisnik.isAktivan());
-            loginDTO2.setUloga(regkorisnik.getUloga());
-            loginDTO2.setKorisnickoime(regkorisnik.getKorisnickoime());
-            loginDTO2.setLozinka(regkorisnik.getLozinka());
+            loginDTO2.setAktivan(regkorisnik.isEnabled());
+//            loginDTO2.setUloga(regkorisnik.getUloga());
+            loginDTO2.setKorisnickoime(regkorisnik.getUsername());
+            loginDTO2.setLozinka(regkorisnik.getPassword());
         }
 
         if(loginDTO2.getKorisnickoime()==null & loginDTO2.getLozinka()==null){
@@ -61,12 +74,9 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 
     @Override
-    public List<Registrovanikorisnik> findAll(String uloga) throws Exception {
-        if(!uloga.equals("ADMINISTRATOR")){
-            throw new Exception("Nije Vam dozvoljen pristup podacima!");
-        }
+    public List<Registrovanikorisnik> findAll() throws Exception {
 
-        List<Registrovanikorisnik> sviaktivnikorisnici = this.registrovanikorisnikRepository.findByAktivan(true);
+        List<Registrovanikorisnik> sviaktivnikorisnici = this.registrovanikorisnikRepository.findByEnabled(true);
         return sviaktivnikorisnici;
     }
 
@@ -74,13 +84,11 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 
     @Override
-    public Registrovanikorisnik update(Registrovanikorisnik regkorisnik, String uloga) throws Exception {
-        if(!uloga.equals("ADMINISTRATOR")){
-            throw new Exception("Nije vam dozvoljen pristup podacima!");
-        }
+    public Registrovanikorisnik update(Registrovanikorisnik regkorisnik) throws Exception {
+
         Registrovanikorisnik noviregkorisnik = this.registrovanikorisnikRepository.findbyid(regkorisnik.getId());
 
-        noviregkorisnik.setAktivan(false);
+        noviregkorisnik.setEnabled(false);
 
 
         Registrovanikorisnik regkorisnik1 = this.registrovanikorisnikRepository.save(noviregkorisnik);
@@ -95,12 +103,25 @@ public class KorisnikServiceImpl implements KorisnikService{
 
         Registrovanikorisnik noviregkorisnik = this.registrovanikorisnikRepository.findbyid(id);
         RegkorisnikDTO regkorisnik = new RegkorisnikDTO();
-        regkorisnik.setKorisnickoime(noviregkorisnik.getKorisnickoime());
+        regkorisnik.setId(noviregkorisnik.getId());
+        regkorisnik.setKorisnickoime(noviregkorisnik.getUsername());
         regkorisnik.setEmail(noviregkorisnik.getEmail());
 
 
         return regkorisnik;
 
 
+    }
+
+
+    @Override
+    public RegkorisnikDTO findbyusername(String username) {
+
+        Registrovanikorisnik noviregkorisnik = this.registrovanikorisnikRepository.findByUsername(username);
+        RegkorisnikDTO regkorisnik = new RegkorisnikDTO();
+        regkorisnik.setId(noviregkorisnik.getId());
+        regkorisnik.setKorisnickoime(noviregkorisnik.getUsername());
+        regkorisnik.setEmail(noviregkorisnik.getEmail());
+        return regkorisnik;
     }
 }

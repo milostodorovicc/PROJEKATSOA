@@ -1,0 +1,52 @@
+body {
+    background-color: silver;
+    font-family: Arial, sans-serif; /* Set a basic font for the page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Use the full height of the viewport */
+    margin: 0;
+}
+
+/* Center the content inside the table */
+#sviblogovi {
+    border-collapse: collapse;
+    width: 80%; /* Make the table take up 80% of the page width */
+    margin-top: 20px;
+}
+
+/* Style the table headers */
+#sviblogovi th {
+    text-align: center;
+    padding: 10px;
+    background-color: #b0b0b0; /* Light gray background for headers */
+    color: white;
+    font-weight: bold;
+}
+
+/* Style the table cells */
+#sviblogovi td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Style the buttons */
+button {
+    background-color: #4CAF50; /* Green background for buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #45a049;
+}

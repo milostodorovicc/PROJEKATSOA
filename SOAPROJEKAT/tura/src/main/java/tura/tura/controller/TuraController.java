@@ -33,9 +33,9 @@ public class TuraController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE, value = "/novatura")
-    public ResponseEntity<Tura> createTura(@RequestBody Tura tura) throws Exception {
+    public ResponseEntity<Tura> createTura(@RequestBody Tura tura,@RequestHeader (name="Authorization") String token) throws Exception {
 
-        Tura novatura = turaService.createTura(tura);
+        Tura novatura = turaService.createTura(tura,token);
 
 
         return new ResponseEntity<>(novatura, HttpStatus.CREATED);
@@ -87,5 +87,18 @@ public class TuraController {
 
 
         return new ResponseEntity<>(ukloniizkorpe, HttpStatus.OK);
+    }
+
+
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/svekreiraneture")
+    public ResponseEntity<List<Tura>> nadjisvekreiraneture(@RequestHeader (name="Authorization") String token) throws Exception{
+
+        List<Tura> sveture  = this.turaService.svekreiraneture(token);
+
+
+
+        return new ResponseEntity<>(sveture, HttpStatus.CREATED);
+
     }
 }

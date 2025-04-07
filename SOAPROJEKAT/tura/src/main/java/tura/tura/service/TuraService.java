@@ -10,7 +10,7 @@ import java.util.Set;
 
 public interface TuraService {
 
-    Tura createTura(Tura tura) throws Exception;
+    Tura createTura(Tura tura, String token) throws Exception;
 
     List<Tura> sveture() throws Exception;
 
@@ -19,4 +19,6 @@ public interface TuraService {
     Set<TuraDTO> svetureukorpi(String idkorpe, String tura1, String brojljudi) throws Exception;
 
     Set<TuraDTO> ukloniizkorpe(String idkorpe, String turaukorpi) throws Exception;
+
+    List<Tura> svekreiraneture(String token) throws Exception;
 }

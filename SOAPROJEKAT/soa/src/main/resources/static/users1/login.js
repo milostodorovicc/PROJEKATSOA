@@ -2,13 +2,13 @@ $(document).on("submit", "form", function (event) {
 
     event.preventDefault();
 
-    var korisnickoime = $("#korisnickoime").val();
-    var lozinka = $("#lozinka").val();
+    var username = $("#username").val();
+    var password = $("#password").val();
 
 
     var login = {
-        korisnickoime,
-        lozinka,
+        username,
+        password,
 
     }
     console.log(login);
@@ -16,27 +16,22 @@ $(document).on("submit", "form", function (event) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8081/users1/api/korisnik/login",
+        url: "http://localhost:8081/users1/api/korisnik/login1",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(login),
         success: function (res) {
             console.log(res);
-            if(res.uloga === "VODIC"){
 
-                    localStorage.setItem("id", res.id);
-                    localStorage.setItem("uloga", "VODIC");
-                    window.location.href = "vodic.html";
 
-            }else if(res.uloga === "ADMINISTRATOR"){
-                localStorage.setItem("id", res.id);
-                localStorage.setItem("uloga", "ADMINISTRATOR");
-                window.location.href = "administrator.html"
-            }else{
-                localStorage.setItem("id", res.id);
-                localStorage.setItem("uloga", "TURISTA");
-                window.location.href = "turista.html"
-            }
+
+            let n = 5;
+            let role1 = res.role.slice(n);
+
+                    localStorage.setItem("jwt", res.accessToken);
+                    window.location.href = role1.toLowerCase() + ".html";
+
+
 
         },
         error: function () {

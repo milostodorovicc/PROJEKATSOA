@@ -2,6 +2,7 @@ package soa.blog.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import soa.blog.entity.BlogDTO;
 import soa.blog.entity.Komentar;
 import soa.blog.entity.KomentarDTO;
 import soa.blog.service.BlogService;
+
 
 import java.util.List;
 import java.util.Set;
@@ -31,6 +33,9 @@ public class BlogController {
     }
 
 
+
+//    @GrpcClient("local-grpc-server")
+//    private BlogServiceImpl simpleStub;
 
 
     @PostMapping(  value = "/noviblog")
@@ -74,9 +79,9 @@ public class BlogController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE, value = "/novikomentar")
-    public ResponseEntity<Komentar> dodajnovikomentar(@RequestBody Komentar komentar, @RequestParam(value = "blog1")  String blog1, @RequestParam(value="idkomentatora") String idkomentatora) throws Exception {
+    public ResponseEntity<Komentar> dodajnovikomentar(@RequestBody Komentar komentar, @RequestParam(value = "blog1")  String blog1, @RequestHeader (name="Authorization") String token) throws Exception {
 
-        Komentar komentar1 = this.blogService.dodajnovikomentar(komentar, blog1, idkomentatora);
+        Komentar komentar1 = this.blogService.dodajnovikomentar(komentar, blog1,token);
 
 
         return new ResponseEntity<>(komentar1, HttpStatus.CREATED);

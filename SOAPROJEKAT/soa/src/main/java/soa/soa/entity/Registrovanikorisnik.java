@@ -1,44 +1,62 @@
 package soa.soa.entity;
 
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Node
-public class Registrovanikorisnik {
+public class Registrovanikorisnik implements UserDetails {
 
+
+    private static final long serialVersionUID = 1L;
     @Id
+    @Column(name="id")
     @GeneratedValue
     private Long id;
 
-    private String korisnickoime;
+    private String username;
 
-    private String lozinka;
+    private String password;
 
     private String email;
 
     @Enumerated(EnumType.STRING)
     private Uloga uloga;
 
-    private boolean aktivan;
+    private boolean enabled;
+
+    @Relationship(type = "HAS_ROLE")
+    private Set<Role> roles;
 
 
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles;
+    }
 
 
     public Registrovanikorisnik() {
     }
 
-    public Registrovanikorisnik(Long id, String korisnickoime, String lozinka, String email, Uloga uloga, boolean aktivan) {
+    public Registrovanikorisnik(Long id, String username, String password, String email, Uloga uloga, boolean enabled) {
         this.id = id;
-        this.korisnickoime = korisnickoime;
-        this.lozinka = lozinka;
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.uloga = uloga;
-        this.aktivan = aktivan;
+        this.enabled = enabled;
     }
 
 
@@ -50,20 +68,20 @@ public class Registrovanikorisnik {
         this.id = id;
     }
 
-    public String getKorisnickoime() {
-        return korisnickoime;
+    public String getUsername() {
+        return username;
     }
 
-    public void setKorisnickoime(String korisnickoime) {
-        this.korisnickoime = korisnickoime;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getLozinka() {
-        return lozinka;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLozinka(String lozinka) {
-        this.lozinka = lozinka;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -74,20 +92,47 @@ public class Registrovanikorisnik {
         this.email = email;
     }
 
-    public Uloga getUloga() {
-        return uloga;
+//    public Uloga getUloga() {
+//        return uloga;
+//    }
+//
+//    public void setUloga(Uloga uloga) {
+//        this.uloga = uloga;
+//    }
+
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setUloga(Uloga uloga) {
-        this.uloga = uloga;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-
-    public boolean isAktivan() {
-        return aktivan;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setAktivan(boolean aktivan) {
-        this.aktivan = aktivan;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
 }

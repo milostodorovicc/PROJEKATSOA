@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: blue;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+button {
+    background-color: white;
+    color: blue;
+    border: 1px solid blue;
+    padding: 15px 0;
+    margin: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 250px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: blue;
+    color: white;
+}

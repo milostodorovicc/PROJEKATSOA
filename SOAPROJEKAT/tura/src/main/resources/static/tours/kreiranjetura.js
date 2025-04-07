@@ -40,10 +40,13 @@ $(document).on("submit", "#turaform", function (event) {
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(novatura),
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+        },
         success: function (res) {
             console.log(res);
             alert("Tura " + res.id + " je uspesno kreirana!");
-            window.location.href = "http://localhost:8081/users1/" + localStorage.getItem("uloga").toLowerCase() + ".html";
+            // window.location.href = "http://localhost:8081/users1/" + localStorage.getItem("uloga").toLowerCase() + ".html";
         },
         error: function () {
             alert("Greška!");

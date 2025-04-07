@@ -3,31 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Svi komentari bloga</title>
-    <link rel = "stylesheet" type = "text/css" >
+
+    <style>
+
+        body {
+            background-color: silver;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+
+        .content {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
     <script src="jquery.min.js"></script>
     <script src="jquery.validate.min.js"></script>
-
-    <script src ="svikomentari.js"></script>
+    <script src="svikomentari.js"></script>
 </head>
 <body>
-<h1>Komentari</h1>
 
-<table id ="svikomentari">
-    <tr>
-        <th>Korisnickoime</th>
-        <th>Tekst</th>
-        <th>Datum</th>
+<div class="content">
+    <h1>Komentari</h1>
 
+    <table id="svikomentari">
+        <tr>
+            <th>Korisnickoime</th>
+            <th>Tekst</th>
+            <th>Datum</th>
+        </tr>
 
-    </tr>
-</table>
-
-</br>
-</br>
-</br>
-
-
-
+    </table>
+</div>
 
 </body>
 </html>

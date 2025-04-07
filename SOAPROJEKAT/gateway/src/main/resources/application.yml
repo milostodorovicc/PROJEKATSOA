@@ -14,11 +14,76 @@ spring:
         - id: soablog
           uri: http://localhost:8012
           predicates:
-            - Path=/blogs/**
+            - Path=/blogs/api/blogovi/noviblog,/blogs/api/blogovi/noviblogimages,/blogs/api/blogovi/svi,/blogs/api/blogovi/novikomentar,/blogs/api/blogovi/jedanblog,/blogs/api/blogovi/slikebloga,/blogs/api/blogovi/svikomentari
+          filters:
+            - AuthenticationFilter
+
         - id: tura
           uri: http://localhost:8013
           predicates:
-            - Path=/tours/**
+            - Path=/tours/api/ture/novatura,/tours/api/ture/svekreiraneture
+          filters:
+            - AuthenticationFilter1
+
+        - id: tura1
+          uri: http://localhost:8013
+          predicates:
+            - Path=/tours/api/ture/sve,/tours/api/ture/novakorpa,/tours/api/ture/dodajukorpu,/tours/api/ture/ukloniizkorpe
+          filters:
+            - AuthenticationFilter2
+
+        - id: turastatic
+          uri: http://localhost:8013
+          predicates:
+            - Path=/tours/*.html
+
+        - id: turastatic1
+          uri: http://localhost:8013
+          predicates:
+            - Path=/tours/*.js
+
+
+        - id: blogstatic
+          uri: http://localhost:8012
+          predicates:
+            - Path=/blogs/*.html
+
+        - id: blogstatic1
+          uri: http://localhost:8012
+          predicates:
+            - Path=/blogs/*.js
+
+        - id: blogstatic2
+          uri: http://localhost:8012
+          predicates:
+            - Path=/blogs/*.png
+
+
+
+
+
+
+
+
+#        - id: tura
+#          uri: http://localhost:8013
+#          predicates:
+#            - Path=/tours/**
+#          filters:
+#            - AuthenticationFilter
+
+
+
+
+
+
+
+
+
+
+
+
+
 #        - id: static3
 #          uri: http://tura:8013
 #          predicates:

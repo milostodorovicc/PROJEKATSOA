@@ -10,6 +10,9 @@ $(document).ready(function () {
         type: "GET",
         url: url,
         dataType: "json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+        },
 
         success: function (res) {
 
@@ -25,6 +28,9 @@ $(document).ready(function () {
                 type: "GET",
                 url: url1,
                 dataType: "json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+                },
 
                 success: function (res) {
                     for ( let i = 0; i < res.length; i++) {
@@ -32,6 +38,7 @@ $(document).ready(function () {
                     // var imageItem = $("<div>").addClass("image-item").append(imgElement);
                     // $("#imageContainer").append(imageItem);
                         alert(res[i]);
+                        var imagePath = "upload/static/blogs/" + res[i];
                         $("body").append( "<img src='"+ res[i] +"'>" );
 
                 }},

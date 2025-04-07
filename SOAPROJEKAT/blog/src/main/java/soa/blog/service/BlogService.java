@@ -16,7 +16,7 @@ public interface BlogService {
 
     List<Blog> sviblogovi() throws Exception;
 
-    Komentar dodajnovikomentar(Komentar komentar, String blog1, String idkomentatora) throws Exception;
+    Komentar dodajnovikomentar(Komentar komentar, String blog1, String token) throws Exception;
 
     String saveblogimages(List<MultipartFile> files, Long idbloga) throws Exception;
 

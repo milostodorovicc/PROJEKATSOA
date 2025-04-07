@@ -1,8 +1,13 @@
 package soa.blog.service;
 
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,10 +24,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.Boolean.TRUE;
 
@@ -78,7 +88,10 @@ public class BlogServiceImpl implements BlogService {
         for (MultipartFile image : files) {
             try {
                 byte[] bytes = image.getBytes();
-                Path path = Paths.get(projectDir + File.separator +"src"+ File.separator +"main"+ File.separator+"resources"+ File.separator+"static"+ File.separator+"blogs"+ File.separator + idbloga + i + ".png");
+
+
+
+                Path path = Paths.get(projectDir + File.separator +"src"+ File.separator +"main"+ File.separator+"resources"+ File.separator+"static"+ File.separator+"blogs"+ File.separator + idbloga +"_"+i + ".png");
                 System.out.println(path);
                 Files.write(path, bytes);
                 i++;
@@ -106,7 +119,7 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public Komentar dodajnovikomentar(Komentar komentar, String blog1, String idkomentatora) throws Exception{
+    public Komentar dodajnovikomentar(Komentar komentar, String blog1, String token) throws Exception{
 
         if(blog1.equals("undefined") ){
             throw new Exception("Niste izabrali blog!");
@@ -114,11 +127,34 @@ public class BlogServiceImpl implements BlogService {
         if(blog1.equals("null")){
             throw new Exception("Niste izabrali blog!");
         }
+
+        RestTemplate restTemplate = new RestTemplate();
+//        String otherServiceUrl = "http://localhost:8081/users1/api/korisnik/getusername";
+//        RegkorisnikDTO regkorisnikDTO = restTemplate.getForObject(otherServiceUrl, RegkorisnikDTO.class);
+
+        HttpHeaders headers = new HttpHeaders();
+        token = token.substring(7);
+        headers.set("Authorization", "Bearer " + token);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<RegkorisnikDTO> regkorisnikDTO = restTemplate.exchange(
+                "http://localhost:8081/users1/api/korisnik/getusername",
+                HttpMethod.GET,
+                requestEntity,
+                RegkorisnikDTO.class
+        );
+
+
+
+
+
+
+
         Long l = Long.parseLong(blog1);
-        Long l1 = Long.parseLong(idkomentatora);
+
         Blog blog2 = this.blogRepository.findbyid(l);
         komentar.setDatumkreiranja(LocalDate.now());
-        komentar.setIdkorisnika(l1);
+        komentar.setIdkorisnika(regkorisnikDTO.getBody().getId());
         komentar.setDatumposlednjeizmene(LocalDate.now());
         Komentar komentar2 = this.komentarRepository.save(komentar);
         Set<Komentar> svikomentaribloga = this.komentarRepository.findbyblogid(blog2.getId());
@@ -164,12 +200,12 @@ public class BlogServiceImpl implements BlogService {
 
         // Create a list to store matching file paths
         List<String> imageUrls = new ArrayList<>();
-
+        String start = idblog+"_";
         // Iterate through files in the directory and add matching files to the list
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directoryPath))) {
             for (Path path : directoryStream) {
 
-                if (path.getFileName().toString().startsWith(idblog)) {
+                if (path.getFileName().toString().startsWith(start)) {
                     System.out.println(path);
                     String imageUrl = path.getFileName().toString();
                     imageUrls.add(imageUrl);
@@ -214,7 +250,30 @@ public class BlogServiceImpl implements BlogService {
             KomentarDTO komentar1 = new KomentarDTO();
             komentar1.setDatum(komentar.getDatumkreiranja());
             komentar1.setTekst(komentar.getTekst());
+
+
             RestTemplate restTemplate = new RestTemplate();
+//            HttpHeaders headers = new HttpHeaders();
+//            token = token.substring(7);
+//            headers.set("Authorization", "Bearer " + token);
+//
+//            HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+//            ResponseEntity<RegkorisnikDTO> regkorisnikDTO = restTemplate.exchange(
+//                    "http://localhost:8081/users1/api/korisnik/getone/" + komentar.getIdkorisnika(),
+//                    HttpMethod.GET,
+//                    requestEntity,
+//                    RegkorisnikDTO.class
+//            );
+
+
+
+
+
+
+
+
+
+
             String otherServiceUrl = "http://localhost:8081/users1/api/korisnik/getone/" + komentar.getIdkorisnika();
             RegkorisnikDTO regkorisnik = restTemplate.getForObject(otherServiceUrl, RegkorisnikDTO.class);
             komentar1.setKorisnickoime(regkorisnik.getKorisnickoime());

@@ -10,6 +10,9 @@ $(document).ready(function (){
         type: "GET",
         url: url1,
         dataType: "json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+        },
 
         success: function (res) {
 
@@ -33,6 +36,9 @@ $(document).ready(function (){
         type: "GET",
         url: url,
         dataType: "json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+        },
 
         success: function (res) {
 
@@ -79,6 +85,9 @@ $(document).on("click", '#dodajukorpu', function(){
             type: "GET",
             url: url,
             dataType: "json",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+            },
 
             success: function (res) {
                 var cena = 0;
@@ -126,6 +135,9 @@ $(document).on("click", '#ukloniizkorpe', function(){
                 type: "GET",
                 url: url,
                 dataType: "json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+                },
 
                 success: function (res) {
                     var cena = 0;

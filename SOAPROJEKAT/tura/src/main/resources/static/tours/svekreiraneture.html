@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sve kreirane ture</title>
+
+  <style>
+
+    body {
+      background-color: silver;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+
+    table {
+      width: 80%;
+      max-width: 900px;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 20px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      color: black;
+      font-size: 18px;
+    }
+
+    td {
+      font-size: 16px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    h1 {
+      text-align: center;
+      color: black;
+      margin-bottom: 20px;
+    }
+  </style>
+
+  <script src="jquery.min.js"></script>
+  <script src="jquery.validate.min.js"></script>
+  <script src="svekreiraneture.js"></script>
+</head>
+<body>
+<h1>Ture</h1>
+
+<table id="svekreiraneture">
+  <tr>
+    <th>Naziv</th>
+    <th>Opis</th>
+    <th>Duzina</th>
+    <th>Tezina</th>
+    <th>Cena</th>
+    <th>Tagovi</th>
+  </tr>
+
+</table>
+</body>
+</html>

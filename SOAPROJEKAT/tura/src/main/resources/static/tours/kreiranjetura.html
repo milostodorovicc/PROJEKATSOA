@@ -1,72 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset = "utf-8"/>
+  <meta charset="utf-8"/>
   <title>Kreiranje tura</title>
-  <link rel = "stylesheet" type = "text/css" >
+
+  <style>
+
+    body {
+      background-color: silver;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+
+    .login-form {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 600px;
+    }
+
+
+    input[type="text"], input[type="number"], input[type="submit"], input[type="radio"] {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 90%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+
+    input[type="submit"] {
+      background-color: #4CAF50; /* Green submit button */
+      color: white;
+      cursor: pointer;
+      border: none;
+      font-size: 18px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049; /* Darker green on hover */
+    }
+
+
+    label {
+      font-size: 18px;
+      margin-bottom: 5px;
+      display: block;
+      text-align: left;
+    }
+
+
+    fieldset {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+
+    fieldset label {
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    fieldset input[type="radio"] {
+      margin: 5px;
+    }
+  </style>
+
   <script src="jquery.min.js"></script>
-
   <script src="jquery.validate.min.js"></script>
-
   <script src="kreiranjetura.js"></script>
 </head>
 
 <body>
 
-<div class = "login-form">
+<div class="login-form">
   <h1>Kreiraj turu</h1>
-  <form  id = "turaform" >
+  <form id="turaform">
 
-    <label for="nazivture">Naziv ture: </label>
+    <label for="nazivture">Naziv ture:</label>
     <input id="nazivture" type="text" name="nazivture" placeholder="Unesite naziv ture"
-           size="25" maxlength="35" required  />
+           size="25" maxlength="35" required/>
 
     <br/>
     <br/>
 
-    <label for="opisture"> Opis ture: </label>
+    <label for="opisture">Opis ture:</label>
     <input id="opisture" type="text" name="opisture" placeholder="Unesite opis ture"
-           size="50" maxlength="235" required />
+           size="50" maxlength="235" required/>
     <br/>
     <br/>
 
-    <label for="duzinature">Duzina ture: </label>
+    <label for="duzinature">Duzina ture:</label>
     <input id="duzinature" type="number" name="duzinature" placeholder="Unesite duzinu ture"
-           size="25" maxlength="35" required  />
+           size="25" maxlength="35" required/>
 
     <br/>
     <br/>
 
-    <label for="tezinature"> Tezina ture: </label>
+    <label for="tezinature">Tezina ture:</label>
     <input id="tezinature" type="number" name="tezinature" placeholder="Unesite tezinu ture"
-           size="25" maxlength="235" required />
+           size="25" maxlength="235" required/>
     <br/>
 
-
-    <label for="cenature"> Cena ture: </label>
+    <label for="cenature">Cena ture:</label>
     <input id="cenature" type="number" name="cenature" placeholder="Unesite cenu ture"
-           size="25" maxlength="35" required />
+           size="25" maxlength="35" required/>
     <br/>
     <br/>
-
 
     <fieldset>
-
-      Odaberite tagove:<br/>
+      <legend>Odaberite tagove:</legend>
       <label for="tag1">TAG1</label>
-      <input id="tag1" class = 'tag1' type="radio" name="tag1" value="t"  />
+      <input id="tag1" class="tag1" type="radio" name="tag1" value="t"/>
       <br/>
       <label for="tag2">TAG2</label>
-      <input id="tag2"  type="radio" name="tag2" value="c"  />
+      <input id="tag2" type="radio" name="tag2" value="c"/>
       <br/>
       <label for="tag3">TAG3</label>
-      <input id="tag3"  type="radio" name="tag3" value="c"  />
-
-
+      <input id="tag3" type="radio" name="tag3" value="c"/>
     </fieldset>
 
-
-    <input type = "submit" value = "Kreiraj turu">
+    <input type="submit" value="Kreiraj turu">
   </form>
 </div>
+
 </body>
+</html>

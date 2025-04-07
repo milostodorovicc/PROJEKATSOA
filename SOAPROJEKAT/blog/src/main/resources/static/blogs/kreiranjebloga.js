@@ -30,6 +30,9 @@ $(document).on("submit", "#form1", function (event) {
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(noviblog),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+            },
             success: function (res) {
 
                 let url1 = new URL('http://localhost:8081/blogs/api/blogovi/noviblogimages');
@@ -43,6 +46,9 @@ $(document).on("submit", "#form1", function (event) {
                         data: images1,
                         contentType: false, // Important: Let the browser set the Content-Type
                         processData: false, // Important: Don't process data (FormData)
+                        beforeSend: function(xhr) {
+                             xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("jwt"));
+                        },
                         success: function(response){
                             console.log(response);
                             alert("Uspesno ste kreirali blog sa slikama!")

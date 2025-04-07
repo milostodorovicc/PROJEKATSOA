@@ -4,6 +4,23 @@ spring:
     authentication:
       username: neo4j
       password: password
+  web:
+    resources:
+      static-locations[0]: "file:src/main/resources/static"
+      static-locations[1]: "classpath:/static"
 
 server:
   port : 8012
+
+
+#grpc:
+#  client:
+#    local-grpc-server:
+#      address: static://localhost:9000
+#      enableKeepAlive: true
+#      keepAliveWithoutCalls: true
+#      negotiationType: plaintext
+
+
+
+

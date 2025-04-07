@@ -1,11 +1,16 @@
 package tura.tura.service;
 
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import tura.tura.entity.Korpa;
-import tura.tura.entity.Tura;
-import tura.tura.entity.TuraDTO;
-import tura.tura.entity.Turaukorpi;
+import org.springframework.web.client.RestTemplate;
+import tura.tura.entity.*;
 import tura.tura.repository.KorpaRepository;
 import tura.tura.repository.TuraRepository;
 import tura.tura.repository.TuraukorpiRepository;
@@ -22,6 +27,9 @@ public class TuraServiceImpl implements TuraService {
 
     private final TuraukorpiRepository turaukorpiRepository;
 
+    @Value("localhost:9091")
+    private String serverAddress;
+
 
 
 
@@ -36,11 +44,52 @@ public class TuraServiceImpl implements TuraService {
 
 
     @Override
-    public Tura createTura(Tura tura) throws Exception {
+    public Tura createTura(Tura tura, String token) throws Exception {
 
 
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        token = token.substring(7);
+//        headers.set("Authorization", "Bearer " + token);
+//
+//        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+//        ResponseEntity<RegkorisnikDTO> regkorisnikDTO = restTemplate.exchange(
+//                "http://localhost:8081/users1/api/korisnik/getusername",
+//                HttpMethod.GET,
+//                requestEntity,
+//                RegkorisnikDTO.class
+//        );
+//
+//        tura.setIdkreatorature(regkorisnikDTO.getBody().getId());
+//        Tura tura1 = this.turaRepository.save(tura);
+//        return tura1;
+
+
+
+
+
+        System.out.println(token);
+        ManagedChannel channel = ManagedChannelBuilder.forTarget(serverAddress)
+                .usePlaintext()
+                .build();
+
+        UserServiceGrpc.UserServiceBlockingStub stub = UserServiceGrpc.newBlockingStub(channel);
+        UserRequest request = UserRequest.newBuilder().setToken(token).build();
+
+
+
+        UserResponse response = stub.getusername(request);
+        System.out.println(response.getEmail());
+
+        RegkorisnikDTO regkorisnikDTO = new RegkorisnikDTO();
+        regkorisnikDTO.setEmail(response.getEmail());
+        regkorisnikDTO.setKorisnickoime(response.getKorisnickoime());
+        regkorisnikDTO.setId(response.getId());
+        tura.setIdkreatorature(regkorisnikDTO.getId());
         Tura tura1 = this.turaRepository.save(tura);
         return tura1;
+
     }
 
 
@@ -51,6 +100,54 @@ public class TuraServiceImpl implements TuraService {
 
 
         List<Tura> sveture = this.turaRepository.findAll();
+
+
+        return sveture;
+    }
+
+
+
+    @Override
+    public List<Tura> svekreiraneture(String token) throws Exception{
+
+
+
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        token = token.substring(7);
+//        headers.set("Authorization", "Bearer " + token);
+//
+//        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+//        ResponseEntity<RegkorisnikDTO> regkorisnikDTO = restTemplate.exchange(
+//                "http://localhost:8081/users1/api/korisnik/getusername",
+//                HttpMethod.GET,
+//                requestEntity,
+//                RegkorisnikDTO.class
+//        );
+
+
+        System.out.println(token);
+        ManagedChannel channel = ManagedChannelBuilder.forTarget(serverAddress)
+                .usePlaintext()
+                .build();
+
+        UserServiceGrpc.UserServiceBlockingStub stub = UserServiceGrpc.newBlockingStub(channel);
+        UserRequest request = UserRequest.newBuilder().setToken(token).build();
+
+
+
+        UserResponse response = stub.getusername(request);
+        System.out.println(response.getEmail());
+
+        RegkorisnikDTO regkorisnikDTO = new RegkorisnikDTO();
+        regkorisnikDTO.setEmail(response.getEmail());
+        regkorisnikDTO.setKorisnickoime(response.getKorisnickoime());
+        regkorisnikDTO.setId(response.getId());
+
+        Long idkreatora = response.getId();
+
+        List<Tura> sveture = this.turaRepository.findbyidkreatorature(idkreatora);
 
 
         return sveture;

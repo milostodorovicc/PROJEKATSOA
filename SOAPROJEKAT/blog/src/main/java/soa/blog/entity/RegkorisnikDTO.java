@@ -2,6 +2,7 @@ package soa.blog.entity;
 
 public class RegkorisnikDTO {
 
+    private Long id;
     private String korisnickoime;
     private String email;
 
@@ -21,10 +22,19 @@ public class RegkorisnikDTO {
         this.email = email;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public RegkorisnikDTO() {
     }
 
-    public RegkorisnikDTO(String korisnickoime, String email) {
+    public RegkorisnikDTO(Long id, String korisnickoime, String email) {
+        this.id = id;
         this.korisnickoime = korisnickoime;
         this.email = email;
     }

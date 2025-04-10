@@ -91,7 +91,8 @@ $(document).on("click", '#dodajukorpu', function(){
 
             success: function (res) {
                 var cena = 0;
-                $('#korpa').empty();
+                $('#korpa tr:not(:first)').remove();
+                //$('#korpa').empty();
                 for ( let i = 0; i < res.length; i++) {
 
 
@@ -141,7 +142,8 @@ $(document).on("click", '#ukloniizkorpe', function(){
 
                 success: function (res) {
                     var cena = 0;
-                    $('#korpa').empty();
+                    //$('#korpa').empty();
+                    $('#korpa tr:not(:first)').remove();
                     for ( let i = 0; i < res.length; i++) {
                         alert(res[i].naziv);
 

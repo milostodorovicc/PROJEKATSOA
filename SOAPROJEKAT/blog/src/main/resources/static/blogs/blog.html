@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
 
     <style>
 
+
         body {
-            background-color: silver;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -20,48 +22,81 @@
 
         .blog-form {
             text-align: center;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 30px;
+            border-radius: 15px;
             background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             width: 80%;
             max-width: 600px;
+            box-sizing: border-box;
+        }
+
+        .blog-form h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 30px;
         }
 
 
         input[type="text"], input[type="date"] {
-            padding: 10px;
-            margin: 10px 0;
+            padding: 12px;
+            margin: 12px 0;
             width: 100%;
-            max-width: 90%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border-radius: 8px;
+            border: 1px solid #ddd;
             font-size: 16px;
+            transition: border 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #0072ff;
+            outline: none;
         }
 
 
         label {
             font-size: 18px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             display: block;
+            color: #333;
             text-align: left;
         }
 
 
         button {
-            padding: 10px 15px;
-            margin: 10px 0;
-            font-size: 16px;
-            background-color: #4CAF50;
+            padding: 12px 20px;
+            margin-top: 10px;
+            font-size: 18px;
+            background-color: #0072ff;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #005bb5;
+            transform: scale(1.05);
         }
+
+        button:active {
+            background-color: #003f87;
+        }
+
+
+        @media (max-width: 768px) {
+            .blog-form {
+                width: 90%;
+                padding: 20px;
+            }
+
+            input[type="text"], input[type="date"], button {
+                font-size: 16px;
+            }
+        }
+
     </style>
 
     <script src="jquery.min.js"></script>
@@ -71,7 +106,7 @@
 <body>
 
 <div class="blog-form">
-    <h1>Blog Form</h1>
+    <h1>Blog</h1>
 
     <label for="naslov">Naslov:</label>
     <input type="text" id="naslov" name="naslov" required><br><br>
@@ -85,6 +120,7 @@
     <!--<label for="images">Slike</label>-->
     <!--<input type="file" name="images" id="images" multiple><br><br>-->
     <!--<div class="image-container" id="imageContainer"></div>-->
+
 
 </div>
 

@@ -7,8 +7,8 @@
   <style>
 
     body {
-      background-color: silver;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
@@ -16,6 +16,15 @@
       align-items: center;
       flex-direction: column;
       height: 100vh;
+      color: white;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: white;
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: 600;
     }
 
 
@@ -25,39 +34,51 @@
       margin-top: 20px;
       border-collapse: collapse;
       background-color: white;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     th, td {
-      padding: 12px 20px;
+      padding: 15px 25px;
       text-align: left;
+      font-size: 16px;
       border-bottom: 1px solid #ddd;
+      transition: all 0.3s ease;
     }
 
     th {
-      background-color: #f2f2f2;
-      color: black;
+      background-color: #607d8b;
+      color: white;
       font-size: 18px;
+      font-weight: 600;
     }
 
     td {
       font-size: 16px;
+      color: black;
     }
 
     tr:nth-child(even) {
-      background-color: #f2f2f2;
+      background-color: #f9f9f9;
     }
 
     tr:hover {
-      background-color: #ddd;
+      background-color: #e0e0e0;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
-    h1 {
-      text-align: center;
-      color: black;
-      margin-bottom: 20px;
+
+    @media (max-width: 768px) {
+      table {
+        width: 95%;
+      }
+      th, td {
+        padding: 10px 15px;
+      }
+      h1 {
+        font-size: 28px;
+      }
     }
   </style>
 
@@ -66,14 +87,14 @@
   <script src="svekreiraneture.js"></script>
 </head>
 <body>
-<h1>Ture</h1>
+<h1>Sve kreirane ture</h1>
 
 <table id="svekreiraneture">
   <tr>
     <th>Naziv</th>
     <th>Opis</th>
-    <th>Duzina</th>
-    <th>Tezina</th>
+    <th>Dužina</th>
+    <th>Težina</th>
     <th>Cena</th>
     <th>Tagovi</th>
   </tr>

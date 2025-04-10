@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kreiranje tura</title>
 
   <style>
 
+
     body {
-      background-color: silver;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
@@ -19,37 +21,52 @@
 
 
     .login-form {
-      text-align: center;
-      padding: 20px;
-      border-radius: 10px;
       background-color: white;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
       width: 80%;
       max-width: 600px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .login-form h1 {
+      font-size: 30px;
+      color: #333;
+      margin-bottom: 20px;
     }
 
 
     input[type="text"], input[type="number"], input[type="submit"], input[type="radio"] {
-      padding: 10px;
-      margin: 10px 0;
+      padding: 12px;
+      margin: 12px 0;
       width: 100%;
-      max-width: 90%;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      border-radius: 8px;
+      border: 1px solid #ddd;
       font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+
+    input[type="text"]:focus, input[type="number"]:focus {
+      border-color: #0072ff;
+      outline: none;
     }
 
 
     input[type="submit"] {
-      background-color: #4CAF50; /* Green submit button */
+      background-color: #0072ff;
       color: white;
       cursor: pointer;
       border: none;
       font-size: 18px;
+      transition: background-color 0.3s ease;
     }
 
     input[type="submit"]:hover {
-      background-color: #45a049; /* Darker green on hover */
+      background-color: #005bb5;
+      transform: scale(1.05);
     }
 
 
@@ -57,26 +74,41 @@
       font-size: 18px;
       margin-bottom: 5px;
       display: block;
+      color: black;
       text-align: left;
     }
 
 
     fieldset {
-      border: 1px solid #ccc;
-      padding: 15px;
+      border: 2px solid #ddd;
+      padding: 20px;
       margin-bottom: 20px;
       border-radius: 10px;
     }
 
-
-    fieldset label {
-      font-size: 16px;
-      margin: 5px;
+    fieldset legend {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0072ff;
     }
 
-    fieldset input[type="radio"] {
-      margin: 5px;
+
+    input[type="radio"] {
+      margin-right: 8px;
     }
+
+
+    @media (max-width: 768px) {
+      .login-form {
+        width: 90%;
+        padding: 20px;
+      }
+
+      input[type="submit"] {
+        font-size: 16px;
+      }
+    }
+
   </style>
 
   <script src="jquery.min.js"></script>
@@ -91,46 +123,28 @@
   <form id="turaform">
 
     <label for="nazivture">Naziv ture:</label>
-    <input id="nazivture" type="text" name="nazivture" placeholder="Unesite naziv ture"
-           size="25" maxlength="35" required/>
-
-    <br/>
-    <br/>
+    <input id="nazivture" type="text" name="nazivture" placeholder="Unesite naziv ture" required/>
 
     <label for="opisture">Opis ture:</label>
-    <input id="opisture" type="text" name="opisture" placeholder="Unesite opis ture"
-           size="50" maxlength="235" required/>
-    <br/>
-    <br/>
+    <input id="opisture" type="text" name="opisture" placeholder="Unesite opis ture" required/>
 
-    <label for="duzinature">Duzina ture:</label>
-    <input id="duzinature" type="number" name="duzinature" placeholder="Unesite duzinu ture"
-           size="25" maxlength="35" required/>
+    <label for="duzinature">Dužina ture:</label>
+    <input id="duzinature" type="number" name="duzinature" placeholder="Unesite dužinu ture" required/>
 
-    <br/>
-    <br/>
-
-    <label for="tezinature">Tezina ture:</label>
-    <input id="tezinature" type="number" name="tezinature" placeholder="Unesite tezinu ture"
-           size="25" maxlength="235" required/>
-    <br/>
+    <label for="tezinature">Težina ture:</label>
+    <input id="tezinature" type="number" name="tezinature" placeholder="Unesite težinu ture" required/>
 
     <label for="cenature">Cena ture:</label>
-    <input id="cenature" type="number" name="cenature" placeholder="Unesite cenu ture"
-           size="25" maxlength="35" required/>
-    <br/>
-    <br/>
+    <input id="cenature" type="number" name="cenature" placeholder="Unesite cenu ture" required/>
 
     <fieldset>
       <legend>Odaberite tagove:</legend>
       <label for="tag1">TAG1</label>
-      <input id="tag1" class="tag1" type="radio" name="tag1" value="t"/>
-      <br/>
+      <input id="tag1" type="radio" name="tag1" value="tag1" />
       <label for="tag2">TAG2</label>
-      <input id="tag2" type="radio" name="tag2" value="c"/>
-      <br/>
+      <input id="tag2" type="radio" name="tag2" value="tag2" />
       <label for="tag3">TAG3</label>
-      <input id="tag3" type="radio" name="tag3" value="c"/>
+      <input id="tag3" type="radio" name="tag3" value="tag3" />
     </fieldset>
 
     <input type="submit" value="Kreiraj turu">

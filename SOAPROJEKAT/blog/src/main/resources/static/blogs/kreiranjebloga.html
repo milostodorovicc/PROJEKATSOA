@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kreiranje bloga</title>
 
     <style>
 
         body {
-            background-color: silver;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -17,59 +18,93 @@
             height: 100vh;
         }
 
-
         .login-form {
             text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 80%;
-            max-width: 600px;
+            max-width: 500px;
         }
 
-
-        input[type="text"], input[type="file"], input[type="submit"] {
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            max-width: 90%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
+        .login-form h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
-
-
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            border: none;
-            font-size: 18px;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-
-        #imagePreview {
-            margin-top: 10px;
-        }
-
 
         label {
             font-size: 18px;
             margin-bottom: 5px;
             display: block;
+            color: #333;
             text-align: left;
         }
 
+        input[type="text"], input[type="file"], input[type="submit"] {
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus, input[type="file"]:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #0072ff;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+
+        #imagePreview {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        #imagePreview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
         #response {
             margin-top: 20px;
             font-size: 16px;
-            color: green;
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+
+        @media (max-width: 600px) {
+            .login-form {
+                width: 90%;
+                padding: 20px;
+            }
+            input[type="text"], input[type="file"], input[type="submit"] {
+                font-size: 14px;
+                padding: 10px;
+            }
         }
     </style>
 
@@ -87,18 +122,15 @@
         <label for="naslov">Naslov bloga:</label>
         <input id="naslov" type="text" name="naslov" placeholder="Unesite naslov bloga" size="25" maxlength="35" required/>
 
-        <br/>
-
         <label for="opis">Opis bloga:</label>
         <input id="opis" type="text" name="opis" placeholder="Unesite opis bloga" size="50" maxlength="235" required/>
-        <br/>
 
         <label for="imageInput">Izaberi slike:</label>
         <input type="file" name="files" id="imageInput" multiple>
         <div id="imagePreview"></div>
 
         <div id="response"></div>
-        <br/>
+
         <input type="submit" value="Kreiraj blog">
     </form>
 </div>

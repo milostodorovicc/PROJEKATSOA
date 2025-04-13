@@ -12,4 +12,13 @@ server:
 
 #grpc:
 #  client:
-#    address: localhost:9091
+#      address: soa:9091
+
+
+
+
+
+
+#grpc:
+#  client:
+#      address: static://tura:9091

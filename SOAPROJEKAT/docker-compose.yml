@@ -33,6 +33,9 @@ services:
       SPRING_NEO4J_URI: "bolt://neo4j:7687"
       SPRING_NEO4J_USERNAME: neo4j
       SPRING_NEO4J_PASSWORD: password
+      UPLOAD_PATH: /app/uploads
+    volumes:
+      - ./uploads:/app/uploads
     networks:
       - mynetwork
 

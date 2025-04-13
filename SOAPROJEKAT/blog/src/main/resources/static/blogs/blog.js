@@ -38,8 +38,10 @@ $(document).ready(function () {
                     // var imageItem = $("<div>").addClass("image-item").append(imgElement);
                     // $("#imageContainer").append(imageItem);
                         alert(res[i]);
-                        var imagePath = "upload/static/blogs/" + res[i];
-                        $("body").append( "<img src='"+ res[i] +"'>" );
+                        // var imagePath = "upload/static/blogs/" + res[i];
+                        // $("body").append( "<img src='"+ res[i] +"'>" );
+                        var imagePath = "/uploads/" + res[i];
+                        $("body").append("<img src='" + imagePath + "'>");
 
                 }},
                 error: function () {

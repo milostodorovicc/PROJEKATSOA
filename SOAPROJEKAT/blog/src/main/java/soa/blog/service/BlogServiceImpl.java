@@ -73,36 +73,41 @@ public class BlogServiceImpl implements BlogService {
     public String saveblogimages(List<MultipartFile> files, Long idbloga) throws Exception {
 
 
-
-
-        String projectDir = System.getProperty("user.dir");
-
-        // Create the directory if it doesn't exist
-        File directory = new File(projectDir + File.separator + UPLOAD_DIR);
-        if (!directory.exists()){
-            directory.mkdirs();
+        String uploadDir = System.getenv("UPLOAD_PATH");
+        if (uploadDir == null || uploadDir.isEmpty()) {
+            uploadDir = "uploaded_images";
         }
 
-        // Save each uploaded image to the directory
+
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            boolean created = directory.mkdirs();
+            if (!created) {
+                throw new IOException("Failed to create upload directory: " + uploadDir);
+            }
+        }
+
+
         int i = 0;
         for (MultipartFile image : files) {
             try {
                 byte[] bytes = image.getBytes();
 
 
+                Path path = Paths.get(directory.getAbsolutePath(), idbloga + "_" + i + ".png");
 
-                Path path = Paths.get(projectDir + File.separator +"src"+ File.separator +"main"+ File.separator+"resources"+ File.separator+"static"+ File.separator+"blogs"+ File.separator + idbloga +"_"+i + ".png");
-                System.out.println(path);
+
                 Files.write(path, bytes);
+
+                System.out.println("Saved image to: " + path.toString());
                 i++;
             } catch (IOException e) {
                 e.printStackTrace();
                 return "Failed to upload " + image.getOriginalFilename() + ": " + e.getMessage();
             }
         }
+
         return "Files uploaded successfully!";
-
-
     }
 
 
@@ -138,7 +143,7 @@ public class BlogServiceImpl implements BlogService {
 
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<RegkorisnikDTO> regkorisnikDTO = restTemplate.exchange(
-                "http://localhost:8081/users1/api/korisnik/getusername",
+                "http://gateway:8081/users1/api/korisnik/getusername",
                 HttpMethod.GET,
                 requestEntity,
                 RegkorisnikDTO.class
@@ -190,49 +195,35 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public List<String> slikebloga(String idblog) throws Exception{
+    public List<String> slikebloga(String idblog) throws Exception {
 
 
+        String uploadDir = System.getenv("UPLOAD_PATH");
+        if (uploadDir == null || uploadDir.isEmpty()) {
+            uploadDir = "uploaded_images";
+        }
 
-        // Get the absolute path of the project directory
-        String projectDir = System.getProperty("user.dir");
-        String directoryPath = projectDir + File.separator +"src"+ File.separator +"main"+ File.separator+"resources"+ File.separator+"static"+ File.separator+"blogs";
 
-        // Create a list to store matching file paths
         List<String> imageUrls = new ArrayList<>();
-        String start = idblog+"_";
-        // Iterate through files in the directory and add matching files to the list
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directoryPath))) {
-            for (Path path : directoryStream) {
+        String prefix = idblog + "_";
 
-                if (path.getFileName().toString().startsWith(start)) {
-                    System.out.println(path);
-                    String imageUrl = path.getFileName().toString();
-                    imageUrls.add(imageUrl);
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(uploadDir))) {
+            for (Path path : directoryStream) {
+                if (Files.isRegularFile(path) && path.getFileName().toString().startsWith(prefix)) {
+                    System.out.println("Found: " + path);
+                    imageUrls.add(path.getFileName().toString());
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new Exception("Empty list1");
+            throw new Exception("Could not read image directory");
         }
 
-        // Check if any matching files were found
         if (imageUrls.isEmpty()) {
-//            return ResponseEntity.notFound().build();
-            throw new Exception("Empty list");
+            throw new Exception("No images found for blog ID: " + idblog);
         }
 
-
-
-
-
-        // Return the image as a ResponseEntity
         return imageUrls;
-
-
-
-
-
     }
 
 
@@ -274,7 +265,7 @@ public class BlogServiceImpl implements BlogService {
 
 
 
-            String otherServiceUrl = "http://localhost:8081/users1/api/korisnik/getone/" + komentar.getIdkorisnika();
+            String otherServiceUrl = "http://gateway:8081/users1/api/korisnik/getone/" + komentar.getIdkorisnika();
             RegkorisnikDTO regkorisnik = restTemplate.getForObject(otherServiceUrl, RegkorisnikDTO.class);
             komentar1.setKorisnickoime(regkorisnik.getKorisnickoime());
             svikomentari1.add(komentar1);

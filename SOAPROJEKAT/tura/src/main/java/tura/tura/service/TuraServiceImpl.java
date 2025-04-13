@@ -27,7 +27,7 @@ public class TuraServiceImpl implements TuraService {
 
     private final TuraukorpiRepository turaukorpiRepository;
 
-    @Value("localhost:9091")
+    @Value("soa:9091")
     private String serverAddress;
 
 
